@@ -8,12 +8,17 @@ def read_and_process_data():
     with open('AoC-2024-2.dat', 'r') as file:
         for line in file:
             levels = list(map(int, line.split(' ')))
-            level_deltas = []
-            for x in range(len(levels)):
-                if (x > 0):
-                    level_deltas.append(levels[x] - levels[x - 1])
-            safe = safe + process_deltas(level_deltas)
-            print(level_deltas)
+            safe_test = 0
+            for skip_level in range(len(levels)):
+                level_deltas = []
+                reduced_levels = levels.copy()
+                reduced_levels.pop(skip_level)
+                for x in range(len(reduced_levels)):
+                    if (x > 0):
+                        level_deltas.append(reduced_levels[x] - reduced_levels[x - 1])
+                safe_test = safe_test + process_deltas(level_deltas)
+            if (safe_test > 0):
+                    safe = safe + 1
         print(safe)
             
 def process_deltas(deltas):
