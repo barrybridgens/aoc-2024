@@ -6,6 +6,7 @@
 max_x = 0
 max_y = 0
 total = 0
+total_2 = 0
 
 left = right = up = down = left_up = right_up = left_down = right_down = False
 
@@ -62,6 +63,18 @@ def check_right_up(x , y):
 
 def check_right_down(x , y):
     if ((grid[x][y] == 'X') and (grid[x + 1][y + 1] == 'M') and (grid[x + 2][y + 2] == 'A') and (grid[x + 3][y + 3] == 'S')):
+        ret = 1
+    else:
+        ret = 0
+    return(ret)
+
+def check_x(x , y):
+    if ((grid[x][y] == 'A') and
+        (((grid[x - 1][y - 1] == 'M') and (grid[x + 1][y + 1] == 'S') and (grid[x - 1][y + 1] == 'S') and (grid[x + 1][y - 1] == 'M')) or
+         ((grid[x - 1][y - 1] == 'S') and (grid[x + 1][y + 1] == 'M') and (grid[x - 1][y + 1] == 'M') and (grid[x + 1][y - 1] == 'S')) or
+         ((grid[x - 1][y - 1] == 'M') and (grid[x + 1][y + 1] == 'S') and (grid[x - 1][y + 1] == 'M') and (grid[x + 1][y - 1] == 'S')) or
+         ((grid[x - 1][y - 1] == 'S') and (grid[x + 1][y + 1] == 'M') and (grid[x - 1][y + 1] == 'S') and (grid[x + 1][y - 1] == 'M')))):
+        # tl br bl tr
         ret = 1
     else:
         ret = 0
@@ -136,7 +149,19 @@ if __name__ == "__main__":
                     total = total + check_right_up(x, y)
                 if (right_down):
                     total = total + check_right_down(x, y)
+
+        for x in range(max_x):
+            for y in range(max_y):
+                print(x, y)
+
+                if ((x >= 1) and (x < (max_x - 1)) and (y >=1) and (y < (max_y - 1))):
+                    print("*")
+                    total_2 = total_2 + check_x(x, y)
+
+
+                
     print(total)
+    print(total_2)
     
         
             
