@@ -3,7 +3,10 @@
 # Problems 1 and 2
 # Barry Bridgens - barry@bridgens.me.uk
 
-total = 0
+from itertools import permutations
+
+ok_total = 0
+nok_total =0
 rules = []
 pages = []
 
@@ -26,15 +29,37 @@ if __name__ == "__main__":
     for p in pages:
         print(p)
         ok = True
+        pp = p.copy()
         for r in rules:
             if ((r[0] in p) and (r[1] in p)):
                 # Rule applies
-                if ((p.index(r[0])) > (p.index(r[1]))):
-                    # Rule failes
+                r0 = pp.index(r[0])
+                r1 = pp.index(r[1])
+                if (r0 > r1):
+                    # Rule fails
                     ok = False
-        if (ok):
-            middle = p[int((len(p) -1) / 2)]
-            print("Middle = ", middle)
-            total = total + middle
 
-    print(total)
+        if (ok == False):
+            perm = permutations(pp)
+            for pt in perm:
+                p_ok = True
+                for r in rules:
+                    if ((r[0] in pt) and (r[1] in pt)):
+                        # Rule applies
+                        r0 = pt.index(r[0])
+                        r1 = pt.index(r[1])
+                        if (r0 > r1):
+                            p_ok = False
+                if (p_ok):
+                    pp = list(pt).copy()
+                    print("-->", pt)
+                    break
+
+        middle = pp[int((len(p) -1) / 2)]
+        if (ok):
+            ok_total = ok_total + middle
+        else:
+            nok_total = nok_total + middle
+
+    print(ok_total)
+    print(nok_total)
