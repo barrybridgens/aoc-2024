@@ -40,20 +40,8 @@ if __name__ == "__main__":
                     ok = False
 
         if (ok == False):
-            perm = permutations(pp)
-            for pt in perm:
-                p_ok = True
-                for r in rules:
-                    if ((r[0] in pt) and (r[1] in pt)):
-                        # Rule applies
-                        r0 = pt.index(r[0])
-                        r1 = pt.index(r[1])
-                        if (r0 > r1):
-                            p_ok = False
-                if (p_ok):
-                    pp = list(pt).copy()
-                    print("-->", pt)
-                    break
+            # Reorder to pass all rules!
+            pass
 
         middle = pp[int((len(p) -1) / 2)]
         if (ok):
